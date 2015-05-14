@@ -1,0 +1,74 @@
+{% extends base.html %}
+{% block title %}
+留言板 - yx0914.me
+{% end %}
+
+{% block css %}
+<style type="text/css" rel="stylesheet">
+    .guestbook {
+        border: 1px solid #e3e3e3;
+        position: relative;
+    }
+
+    .guestbook .title {
+        background-color: rgba(233, 53, 38, 0.66);
+        padding: 5px;
+        font-size: 18px;
+        color: #fff;
+    }
+
+    .comments {
+        padding: 10px;
+    }
+
+    .message {
+        text-align: center;
+    }
+
+</style>
+{% end %}
+
+
+{% block js %}
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    var duoshuoQuery = {short_name: "wyx0914"};
+    $(function () {
+        (function () {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';
+            ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0]
+            || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+    })
+
+</script>
+<!-- 多说公共JS代码 end -->
+
+{% end %}
+
+{% block main %}
+<div class="guestbook">
+    <div class="title">
+        留言板
+    </div>
+    <div class="message">
+        <h1>Hello, world!</h1>
+
+        <h3>
+            <small>人生就像一场戏，因为有缘才相聚。</small>
+        </h3>
+
+    </div>
+
+    <div class="comments">
+        <!-- 多说评论框 start -->
+        <div class="ds-thread" data-author-key="wyx0914" data-thread-key="guestbook" data-title="留言板"
+             data-url="http://yx0914.me/guestbook"></div>
+        <!-- 多说评论框 end -->
+    </div>
+</div>
+{% end %}

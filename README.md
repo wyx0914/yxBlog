@@ -1,3 +1,3 @@
 ##依赖
-* ###tornado
-* ###pymongo
+* tornado
+* pymongo

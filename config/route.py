@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 from tornado.web import StaticFileHandler
 from config.constants import settings
-from handler import home, admin, about
+from handler import home, admin, about, guestbook
 
 __author__ = 'wuyongxing'
 
 
 mapper = [
     (r'/', home.IndexHandler),
+    (r'/guestbook', guestbook.GuestBookHandler),
     (r'/about', about.AboutHandler),
     (r'/system/login', admin.LoginHandler),
     (r'/system/logout', admin.LogoutHandler),

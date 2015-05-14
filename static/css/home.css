@@ -87,6 +87,7 @@ body {
 
 #content {
     padding: 10px;
+    position: relative;
 }
 
 #to-header {
@@ -95,7 +96,9 @@ body {
 }
 
 #sidebar {
-    float: right;
+    position: absolute;
+    right: 10px;
+    display: inline-block;
     width: 250px;
 }
 
