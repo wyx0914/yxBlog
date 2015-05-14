@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <title>Yx个人博客后台管理系统</title>
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link type="text/css" rel="stylesheet" href="/static/css/bootstrap.css">
+    <style type="text/css">
+        body {
+            background: #fff url('/static/img/background.jpg') center repeat;
+        }
+
+        .login-panel {
+            position: relative;
+            width: 500px;
+            height: 320px;
+            background-color: #fff;
+            border-radius: 10px;
+            margin: 100px auto;
+            padding-top: 60px;
+            box-shadow: 2px 2px 10px #777, -2px -2px 10px #777;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 25px;
+            color: #e96148;
+            text-shadow: 2px 2px 2px #e6e6e6, -2px -2px 2px #e6e6e6;
+        }
+
+        .login-form {
+            width: 300px;
+            margin-left: 100px;
+        }
+
+        .login-form div {
+            margin-top: 20px;
+        }
+    </style>
+
+
+</head>
+<body>
+<div class="login-panel">
+    <div class="title">
+        Yx个人博客后台管理系统
+    </div>
+    <form id="login" action="/system/login" method="post">
+        {% module xsrf_form_html() %}
+        <div class="login-form">
+            <div class="input-group">
+                <span class="input-group-addon">账号</span>
+                <input id="account" name="account" type="text" class="form-control" placeholder="账号..."/>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">密码</span>
+                <input id="password" name="password" type="password" class="form-control" placeholder="密码..."/>
+            </div>
+            <div class="btn btn-danger btn-block" onclick="submitForm()">登录</div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="/static/js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/js/md5.js"></script>
+<script type="text/javascript">
+
+    function submitForm() {
+        var account = $('#account').val()
+        var password = $('#password').val()
+
+        if (account == '' || password == '') {
+            alert('请输入账号或密码!')
+            return
+        }
+
+        $('#password').val(hex_md5(password))
+
+        $('#login').submit()
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+{% extends 'system-base.html' %}
+{% block tabId %}#friend-link{% end %}
+
+{% block css %}
+<style type="text/css" rel="stylesheet">
+    td, th {
+        text-align: center;
+    }
+</style>
+{% end %}
+
+{% block region %}
+<form class="form-inline" action="/system/friend/add" method="post">
+    {% module xsrf_form_html() %}
+    <div class="form-group">
+        <div class="input-group">
+            <div class="input-group-addon">文本</div>
+            <input type="text" class="form-control" placeholder="文本" name="text">
+        </div>
+        <div class="input-group">
+            <div class="input-group-addon">链接</div>
+            <input type="text" class="form-control" placeholder="链接" name="link">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">添加</button>
+</form>
+<br/>
+<table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>文本</th>
+        <th>链接</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for item in links %}
+    <tr>
+        <td style="width: 25%"><span>{{ item['_id'] }}</span></td>
+        <td style="width: 30%">
+            <input class="btn btn-block" type="text" value="{{ item['text'] }}" name="text"/>
+        </td>
+        <td style="width: 30%">
+            <input class="btn btn-block" type="text" value="{{ item['link'] }}" name="link"/>
+        </td>
+        <td style="width: 15%">
+            <button class="btn btn-warning" onclick="updateLink(this)">修改</button>
+            <button class="btn btn-danger" onclick="deleteLink(this)">删除</button>
+        </td>
+    </tr>
+    {% end %}
+    </tbody>
+</table>
+{% end %}
+
+
+{% block js %}
+<script type="text/javascript">
+    function updateLink(element) {
+        p = $(element).parent()
+        _id = p.siblings("td:eq(0)").children("span").html()
+        text = p.siblings("td:eq(1)").children("input").val()
+        link = p.siblings("td:eq(2)").children("input").val()
+
+        $.post("/system/friend/update", {
+            _xsrf: getCookie('_xsrf'),
+            _id: _id,
+            text: text,
+            link: link
+        }, function (data, status) {
+            window.location.reload()
+        })
+    }
+
+    function deleteLink(element) {
+        p = $(element).parent()
+        _id = p.siblings("td:eq(0)").children("span").html()
+
+        $.post("/system/friend/delete", {
+            _xsrf: getCookie('_xsrf'),
+            _id: _id
+        }, function (data, status) {
+            window.location.reload()
+        })
+    }
+</script>
+{% end %}

@@ -1,0 +1,119 @@
+{% extends base.html %}
+{% block title %}
+关于yx0914 - yx0914.me
+{% end %}
+
+{% block css %}
+<style type="text/css" rel="stylesheet">
+    .about {
+        border: 1px solid #e3e3e3;
+    }
+
+    .about ul {
+        list-style: none;
+    }
+
+    .about ul li {
+        font-size: 14px;
+        padding: 5px;
+        position: relative;
+    }
+
+    .date {
+        position: absolute;
+        right: 10px;
+        color: #66afe9;
+    }
+
+    .about .title {
+        background-color: rgba(233, 53, 38, 0.66);
+        padding: 5px;
+        font-size: 18px;
+        color: #fff;
+    }
+
+    .info {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    .introduce {
+        padding: 10px;
+    }
+
+    .section {
+        border-left: 5px solid #42eec2;
+        color: #080;
+        font-size: 16px;
+        padding: 5px;
+        background-color: #f8f8f8;
+        margin-bottom: 10px;
+    }
+
+    .info .offset {
+        margin-bottom: 20px;
+    }
+
+
+</style>
+{% end %}
+
+
+{% block js %}
+{% end %}
+
+{% block main %}
+<div class="about">
+    <div class="title">
+        关于Yx
+    </div>
+    <div class="introduce">大家好，我是吴永兴，一只刚毕业的程序猿。</div>
+
+    <div class="info">
+
+        <div class="section">标签</div>
+        <div class="offset">
+            <h3><span class="label label-info">晋江狼</span></h3>
+            <h3><span class="label label-warning">不怎么纠结的天秤座</span></h3>
+            <h3><span class="label label-success">2015年福建师范大学毕业，软件工程</span></h3>
+        </div>
+        <div class="section">经历</div>
+        <div class="offset">
+            <ul>
+                <li>
+                    <span class="glyphicon glyphicon-menu-right"></span>
+                    就读 福建师范大学 软件学院 软件工程专业
+                    <span class="date">2011/09</span>
+                </li>
+                <li>
+                    <span class="glyphicon glyphicon-menu-right"></span>
+                    实习 在携程打了三个月的酱油
+                    <span class="date">2014/08</span>
+                </li>
+                <li>
+                    <span class="glyphicon glyphicon-menu-right"></span>
+                    实习 在美团又打了三个月的酱油
+                    <span class="date">2014/12</span>
+                </li>
+                <li>
+                    <span class="glyphicon glyphicon-menu-right"></span>
+                    毕业 大学专注于"自学", 累计写了几W行垃圾代码，不懂算法，喜欢做APP、前端
+                    <span class="date">2015/07</span>
+                </li>
+
+                <li>
+                    <span class="glyphicon glyphicon-menu-right"></span>
+                    待续 ...
+                </li>
+            </ul>
+        </div>
+        <div class="section">联系方式</div>
+        <ul>
+            <li>企鹅: 815948111</li>
+            <li>微博: <a href="http://weibo.com/yx0914">http://weibo.com/yx0914</a></li>
+            <li>邮箱: <a href="mailto:canfengxiliu@gmail.com">canfengxiliu@gmail.com</a></li>
+        </ul>
+    </div>
+
+</div>
+{% end %}

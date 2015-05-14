@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <title>Yx个人博客后台管理系统</title>
+    <link type="text/css" rel="stylesheet" href="/static/css/bootstrap.css">
+    <link type="text/css" rel="stylesheet" href="/static/css/system.base.css">
+    {% block css %}{% end %}
+
+    <script type="text/javascript" src="/static/js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/js/system.base.js"></script>
+    {% block js %}{% end %}
+</head>
+<body>
+<div class="header">
+    <div class="float-left">
+        Yx个人博客后台管理系统
+    </div>
+    <div class="float-right">
+        {{ current_user }}
+        <a href="/system/logout">安全退出</a>
+    </div>
+    <div class="clear-both"></div>
+</div>
+<div class="clear-both"></div>
+<input type="hidden" id="tabId" value="{% block tabId %}{% end %}" />
+
+<div class="main-container">
+    <div class="sidebar float-left">
+        <ul>
+            <li class="session">
+                <div class="title">文章管理</div>
+                <ul class="menu">
+                    <li id="article-type"><a href="#">文章分类</a></li>
+                    <li id="article-list"><a href="#">文章列表</a></li>
+                </ul>
+            </li>
+
+            <li class="session">
+                <div class="title">链接管理</div>
+                <ul class="menu">
+                    <li id="friend-link"><a href="/system/friend">友情链接</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="region">
+        <div class="region-container">
+            {% block region %}
+
+            {% end %}
+        </div>
+    </div>
+    <div class="clear-both"></div>
+</div>
+
+{% block dialog %}
+
+{% end %}
+
+</body>
+</html>

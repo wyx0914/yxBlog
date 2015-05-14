@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <title>{% block title %}{% end %}</title>
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link type="text/css" rel="stylesheet" href="/static/css/bootstrap.css">
+    {% block css %}{% end %}
+    <link type="text/css" rel="stylesheet" href="/static/css/home.css">
+
+    <script type="text/javascript" src="/static/js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/js/home.js"></script>
+    {% block js %}{% end %}
+</head>
+<body>
+<div id="container">
+    <div id="header-wrap">
+        <div id="header">
+            <img id="logo" src="/static/img/logo.jpg" alt="logo">
+
+            <div id="header-title">五行属逗</div>
+            <div id="header-sub-title">以逗逼的方式去享受生活的点点滴滴 - yx0914.me</div>
+        </div>
+    </div>
+    <div id="menus">
+        <ol class="breadcrumb">
+            <li><a href="/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a></li>
+            <li><a href="#">&nbsp;博&nbsp;客&nbsp;</a></li>
+            <li><a href="#">&nbsp;留&nbsp;言&nbsp;</a></li>
+            <li><a href="/about">&nbsp;关&nbsp;于&nbsp;</a></li>
+        </ol>
+    </div>
+    <div id="content">
+        <div id="sidebar">
+            <div class="weibo">
+                <iframe width="250" height="110" class="share_self" frameborder="0" scrolling="no"
+                        src="http://widget.weibo.com/weiboshow/index.php?language=&width=250&height=110&fansRow=2&ptype=1&speed=0&skin=5&isTitle=1&noborder=0&isWeibo=0&isFans=0&uid=2045626400&verifier=e0e8dc08&colors=ffffff,ffffff,8a867e,4fb8f2,ecfbfd&dpc=1">
+                </iframe>
+            </div>
+            <div class="sidebar-item">
+                <div class="title">
+                    最新博客
+                </div>
+                <ul>
+                    {% for i in range(5) %}
+                    <li><a href="#{{ i }}">博客 {{ i }}</a></li>
+                    {% end %}
+                </ul>
+            </div>
+
+            <div class="sidebar-item">
+                <div class="title">
+                    分类目录
+                </div>
+                <ul>
+                    {% for i in range(5) %}
+                    <li><a href="#{{ i }}">博客 {{ i }}</a></li>
+                    {% end %}
+                </ul>
+            </div>
+            <div class="sidebar-item">
+                <div class="title">
+                    友情链接
+                </div>
+                {% if len(links) == 0 %}
+                <div>无</div>
+                {% else %}
+                <ul>
+                    {% for item in links %}
+                    <li><a href="{{ item['link'] }}">{{ item['text'] }}</a></li>
+                    {% end %}
+                </ul>
+                {% end %}
+            </div>
+        </div>
+        <div id="main">
+            {% block main %}
+            {% end %}
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div id="footer">
+        版权所有&copy;2015 - yx0914.me (<a href="https://github.com/wyx0914/yxBlog">源码</a>)
+        <a id="to-header" href="#header"><span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>回到顶部</a>
+    </div>
+</div>
+</body>
+</html>
