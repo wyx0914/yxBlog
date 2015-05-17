@@ -1,0 +1,95 @@
+{% extends 'system-base.html' %}
+{% block tabId %}#article-list{% end %}
+
+{% block css %}
+<style type="text/css" rel="stylesheet">
+    td, th {
+        text-align: center;
+    }
+
+    .table {
+        margin: 0px;
+    }
+
+    .pagination {
+        margin: 0px;
+    }
+</style>
+{% end %}
+
+{% block region %}
+
+<a class="btn btn-primary" href="/system/article/add">添加</a>
+<br/>
+<br/>
+<table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>标题</th>
+        <th>分类</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for item in article_list %}
+    <tr>
+        <td style="width: 25%"><span>{{ item._id }}</span></td>
+        <td style="width: 30%">
+            <input class="btn btn-block" type="text" value="{{ item.title }}" name="type"/>
+        </td>
+        <td style="width: 30%">
+            <span>{{ item.type_name }}</span>
+        </td>
+        <td style="width: 15%">
+            <a class="btn btn-warning" href="/system/article/{{ item.title }}/update">修改</a>
+            <button class="btn btn-danger" onclick="deleteLink(this)">删除</button>
+        </td>
+    </tr>
+    {% end %}
+    </tbody>
+</table>
+<br/>
+{% if page.count > 1 %}
+<ul class="pagination">
+    {% if page.index >= 2 %}
+    <li>
+        <a href="/system/article/list/{{ (page.index - 1)}}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+        </a>
+    </li>
+    {% end %}
+    {% for i in range(page.start, page.start + page.count) %}
+    <li {% if (i==page.index) %} class="active" {% end %}>
+        <a href="/system/article/list/{{ i }}">
+            {{ i }}
+        </a>
+    </li>
+    {% end%}
+    {% if page.index < (page.start + page.count - 1) %}
+    <li>
+        <a href="/system/article/list/{{ (page.index + 1) }}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+        </a>
+    </li>
+    {% end %}
+</ul>
+{% end %}
+{% end %}
+
+{% block js %}
+<script type="text/javascript">
+
+    function deleteLink(element) {
+        p = $(element).parent()
+        _id = p.siblings("td:eq(0)").children("span").html()
+
+        $.post("/system/article/delete", {
+            _xsrf: getCookie('_xsrf'),
+            _id: _id
+        }, function (data, status) {
+            window.location.reload()
+        })
+    }
+</script>
+{% end %}

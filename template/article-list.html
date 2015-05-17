@@ -1,0 +1,52 @@
+{% extends base.html %}
+{% block title %}
+文章列表 - yx0914.me
+{% end %}
+
+{% block css %}
+{% end %}
+
+{% block js %}
+{% end %}
+
+{% block main %}
+<div class="article-list">
+    <div class="title">
+        文章列表
+    </div>
+    <ul class="items">
+        {% for model in article_list %}
+        <li>
+            {{ datetime.datetime.fromtimestamp(model.time).strftime('%Y-%m-%d') }}&nbsp;&nbsp;
+            <a href="/article/detail/{{ model.title }}">{{ model.title }}</a>&nbsp;&nbsp;
+            ({{ model.visit_count }}次阅读)
+        </li>
+        {% end %}
+    </ul>
+</div>
+{% if page.count > 1 %}
+<ul class="pagination">
+    {% if page.index >= 2 %}
+    <li>
+        <a href="/article/{{ type }}/page/{{ (page.index - 1)}}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+        </a>
+    </li>
+    {% end %}
+    {% for i in range(page.start, page.start + page.count) %}
+    <li {% if (i==page.index) %} class="active" {% end %}>
+        <a href="/article/{{ type }}/page/{{ i }}">
+            {{ i }}
+        </a>
+    </li>
+    {% end%}
+    {% if page.index < (page.start + page.count - 1) %}
+    <li>
+        <a href="/article/{{ type }}/page/{{ (page.index + 1) }}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+        </a>
+    </li>
+    {% end %}
+</ul>
+{% end %}
+{% end %}

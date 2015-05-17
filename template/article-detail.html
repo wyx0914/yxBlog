@@ -1,0 +1,67 @@
+{% extends base.html %}
+
+{% block seo %}
+<meta name="keywords" content="{{ model.tag }}">
+<meta name="description" content="{{ model.description }}">
+{% end %}
+
+{% block title %}
+{{ model.title }} - yx0914.me
+{% end %}
+
+{% block css %}
+<link type="text/css" rel="stylesheet" href="/static/kindeditor/plugins/code/prettify.css">
+<link type="text/css" rel="stylesheet" href="/static/css/kindeditor.css">
+{% end %}
+
+{% block js %}
+<script type="text/javascript" src="/static/kindeditor/plugins/code/prettify.js"></script>
+<script type="text/javascript">
+    $(function () {
+        prettyPrint()
+
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })
+</script>
+{% end %}
+
+{% block main %}
+<div class="article-detail">
+    <div class="title">
+        {{ model.title }}
+    </div>
+    <div class="article-info">
+        <span class="article-type">分类: <a href="/article/{{ model.type_name }}/page/1">{{ model.type_name }}</a></span>
+        <span class="article-time">
+            {{ datetime.datetime.fromtimestamp(model.time).strftime('%Y-%m-%d %H:%M') }}&nbsp;&nbsp;
+            <span class="glyphicon glyphicon-search"></span>{{ model.visit_count }}次阅读&nbsp;&nbsp;
+            <span class="glyphicon glyphicon-comment"></span>
+            <a href="#article-detail-comments">评论</a>
+            (<span class="ds-thread-count" data-thread-key="article-{{ model._id }}"></span>)
+        </span>
+        {% if len(model.tag.split(',')) > 0 %}
+        <h6 class="article-tag">
+            {% for item in model.tag.split(',') %}
+            <span class="label label-info">{{ item }}</span>
+            {% end %}
+        </h6>
+        {% end %}
+    </div>
+
+    <div class="article-content ke-content">{% raw model.content %}</div>
+
+</div>
+<div id="article-detail-comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-author-key="wyx0914" data-thread-key="article-{{ model._id }}"
+         data-title="{{ model.title }}"
+         data-url="http://yx0914.me/article/detail/{{ model.title }}"></div>
+    <!-- 多说评论框 end -->
+</div>
+{% end %}

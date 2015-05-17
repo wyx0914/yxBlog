@@ -2,15 +2,17 @@
 <html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    {% block seo %}
+    {% end %}
     <title>{% block title %}{% end %}</title>
     <link rel="shortcut icon" href="/favicon.ico">
     <link type="text/css" rel="stylesheet" href="/static/css/bootstrap.css">
     {% block css %}{% end %}
-    <link type="text/css" rel="stylesheet" href="/static/css/home.css">
+    <link type="text/css" rel="stylesheet" href="/static/css/yx0914.css">
 
     <script type="text/javascript" src="/static/js/jquery-1.11.2.min.js"></script>
     <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/static/js/home.js"></script>
+    <script type="text/javascript" src="/static/js/yx0914.js"></script>
     {% block js %}{% end %}
 </head>
 <body>
@@ -26,7 +28,7 @@
     <div id="menus">
         <ol class="breadcrumb">
             <li><a href="/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a></li>
-            <li><a href="/">&nbsp;博&nbsp;客&nbsp;</a></li>
+            <li><a href="/article/all/page/1">&nbsp;博&nbsp;客&nbsp;</a></li>
             <li><a href="/guestbook">&nbsp;留&nbsp;言&nbsp;</a></li>
             <li><a href="/about">&nbsp;关&nbsp;于&nbsp;</a></li>
         </ol>
@@ -42,29 +44,37 @@
                 <div class="title">
                     最新博客
                 </div>
+                {% if len(types) == 0 %}
+                <div>暂无博客</div>
+                {% else %}
                 <ul>
-                    {% for i in range(5) %}
-                    <li><a href="#{{ i }}">博客 {{ i }}</a></li>
+                    {% for item in latest_articles %}
+                    <li><a href="/article/detail/{{ item.title }}">{{ item.title }}</a></li>
                     {% end %}
                 </ul>
+                {% end %}
             </div>
 
             <div class="sidebar-item">
                 <div class="title">
                     分类目录
                 </div>
+                {% if len(types) == 0 %}
+                <div>暂无分类</div>
+                {% else %}
                 <ul>
-                    {% for i in range(5) %}
-                    <li><a href="#{{ i }}">博客 {{ i }}</a></li>
+                    {% for item in types %}
+                    <li><a href="/article/{{ item['type'] }}/page/1">{{ item['type'] }} ( {{ item['num'] }} )</a></li>
                     {% end %}
                 </ul>
+                {% end %}
             </div>
             <div class="sidebar-item">
                 <div class="title">
                     友情链接
                 </div>
                 {% if len(links) == 0 %}
-                <div>无</div>
+                <div>暂无友链</div>
                 {% else %}
                 <ul>
                     {% for item in links %}

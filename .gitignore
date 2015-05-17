@@ -7,3 +7,5 @@
 
 #python
 *.pyc
+
+/static/attach/article/*

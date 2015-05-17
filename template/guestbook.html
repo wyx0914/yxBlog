@@ -4,45 +4,20 @@
 {% end %}
 
 {% block css %}
-<style type="text/css" rel="stylesheet">
-    .guestbook {
-        border: 1px solid #e3e3e3;
-        position: relative;
-    }
-
-    .guestbook .title {
-        background-color: rgba(233, 53, 38, 0.66);
-        padding: 5px;
-        font-size: 18px;
-        color: #fff;
-    }
-
-    .comments {
-        padding: 10px;
-    }
-
-    .message {
-        text-align: center;
-    }
-
-</style>
 {% end %}
 
 
 {% block js %}
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
-    var duoshuoQuery = {short_name: "wyx0914"};
     $(function () {
-        (function () {
-            var ds = document.createElement('script');
-            ds.type = 'text/javascript';
-            ds.async = true;
-            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-            ds.charset = 'UTF-8';
-            (document.getElementsByTagName('head')[0]
-            || document.getElementsByTagName('body')[0]).appendChild(ds);
-        })();
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
     })
 
 </script>

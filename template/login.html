@@ -47,6 +47,7 @@
     </div>
     <form id="login" action="/system/login" method="post">
         {% module xsrf_form_html() %}
+        <input type="hidden" name="next" value="{{ next }}"/>
         <div class="login-form">
             <div class="input-group">
                 <span class="input-group-addon">账号</span>

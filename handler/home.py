@@ -7,4 +7,4 @@ __author__ = 'wuyongxing'
 class IndexHandler(BaseHandler):
 
     def get(self, *args, **kwargs):
-        self.render('base')
+        self.render('index')

@@ -19,13 +19,19 @@ def add(text, link):
 
 
 def update(_id, text, link):
-    table_friend_link.update({'_id': ObjectId(_id)}, {
-        '$set': {
-            'text': text,
-            'link': link
-        }
-    })
+    try:
+        table_friend_link.update({'_id': ObjectId(_id)}, {
+            '$set': {
+                'text': text,
+                'link': link
+            }
+        })
+    except:
+        pass
 
 
 def delete(_id):
-    res = table_friend_link.remove({'_id': ObjectId(_id)})
+    try:
+        table_friend_link.remove({'_id': ObjectId(_id)})
+    except:
+        pass

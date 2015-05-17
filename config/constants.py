@@ -8,9 +8,15 @@ item_limit = 10
 
 page_count = 10
 
-cookies_expires = 30 * 60 # 1800 s
+item_limit_rate = 2
+
+cookies_expires = 60 * 60 # 3600 s
 
 home_dir = path.dirname(path.dirname(__file__))
+
+upload_path = "static/attach/article/"
+
+attach_path = path.join(home_dir, 'static/attach/')
 
 settings = {
     'static_path': path.join(home_dir, 'static'),
@@ -20,3 +26,4 @@ settings = {
     "xsrf_cookies": True,
     "cookie_secret": "61oETzKXQAGaYdkL5gEmGeJBFuYh7EQnp2XdTP1o/Vo=",
 }
+

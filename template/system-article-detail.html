@@ -1,0 +1,157 @@
+{% extends 'system-base.html' %}
+{% block tabId %}#article-list{% end %}
+
+{% block css %}
+<style type="text/css" rel="stylesheet" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+    .dropdown-toggle {
+        width: 100%;
+        text-align: left;
+    }
+
+    .dropdown-menu {
+        width: 100%;
+    }
+
+    .dropdown-menu li {
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    .dropdown-menu li:hover {
+        background-color: #e6e6e6;
+    }
+</style>
+{% end %}
+
+{% block region %}
+<form id="article-form" method="post">
+    {% module xsrf_form_html() %}
+    <input id="article-id" type="hidden" name="_id" value="{{ model._id }}">
+
+    <div class="input-group">
+        <span class="input-group-addon">文章标题</span>
+        <input id="article-title" type="text" class="form-control" value="{{ model.title }}" name="title" placeholder="文章标题">
+    </div>
+    <br/>
+
+    <div class="input-group">
+        <span class="input-group-addon">文章类型</span>
+
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                {% if model.type_name != '' %}
+                {{ model.type_name }}
+                {% else %}
+                选择文章类型
+                {% end %}
+            </button>
+            <input id="type" type="hidden" name="type" value="{{ model.type }}">
+            <ul class="dropdown-menu">
+                {% for item in types %}
+                <li data-id="{{ item['_id'] }}">{{ item['type'] }}</li>
+                {% end %}
+            </ul>
+        </div>
+    </div>
+    <br>
+
+    <div class="input-group">
+        <span class="input-group-addon">文章标签</span>
+        <input type="text" class="form-control" name="tag" placeholder="文章标签,多个以,分隔" value="{{ model.tag }}">
+    </div>
+
+    <br/>
+
+    <div class="input-group">
+        <span class="input-group-addon">文章简介</span>
+        <input type="text" class="form-control" name="description" placeholder="文章简介" value="{{ model.description }}">
+    </div>
+
+    <br/>
+    <textarea name="content" class="article-content">{{ model.content }}</textarea>
+    <br/>
+    <a id="btn-submit" class="btn btn-primary">提交</a>
+    <a href="/system/article/list/1" class="btn btn-default">取消</a>
+</form>
+
+{% end %}
+
+
+{% block js %}
+<script type="text/javascript" src="/static/kindeditor/kindeditor-min.js"></script>
+<script type="text/javascript" src="/static/kindeditor/lang/zh_CN.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        $("#article-form").attr('action', window.location)
+
+        $("#btn-submit").click(function () {
+            type = $("#type").val()
+            title = $("#article-title").val()
+            _id = $("#article-id").val()
+
+            $.post("/system/article/check", {
+                _xsrf: getCookie('_xsrf'),
+                type: type,
+                title: title,
+                _id: _id
+            }, function(result){
+                if(result.error == 0) {
+                    $("#article-form").submit()
+                } else {
+                    alert(result.message)
+                }
+            }, "json")
+        })
+
+        $(".dropdown-menu li").each(function () {
+            $(this).click(function () {
+                $(".dropdown-toggle").html($(this).html())
+                $("#type").val($(this).data("id"))
+            })
+        })
+    })
+
+
+    KindEditor.ready(function (K) {
+        K.create('textarea[name="content"]', {
+            width: '100%',
+            height: '300px',
+            newlineTag: 'p',
+            resizeMode: 0,
+            autoHeightMode: false,
+            allowPreviewEmoticons: true,
+            allowFileManager: true,
+            allowImageUpload: true,
+            allowFlashUpload: false,
+            allowMediaUpload: false,
+            allowFileUpload: false,
+            uploadJson: '/attach/upload',
+            fileManagerJson: '/attachments',
+            themeType: 'simple',
+            cssPath: [
+                '/static/kindeditor/plugins/code/prettify.css',
+                '/static/kindeditor/plugins/code/code.css',
+                '/static/css/kindeditor.css',
+            ],
+            items: [
+                'formatblock', 'bold', 'strikethrough', '|',
+                'forecolor', 'hilitecolor', '|',
+                'justifyleft', 'justifycenter', 'justifyright', 'justifyfull', '|',
+                'advtable', 'hr', 'link', 'image', 'code', 'media', 'flash', '|',
+                'undo', 'redo', 'plainpaste', 'fullscreen'
+            ],
+            extraFileUploadParams: {   //提交xsrf到服务器
+                _xsrf: getCookie("_xsrf")
+            },
+            afterChange: function () {
+                this.sync();
+            },
+            afterBlur: function () {
+                this.sync();
+            }
+        })
+    })
+
+</script>
+{% end %}

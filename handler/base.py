@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from os import path
 from tornado.web import RequestHandler
-from config.constants import settings
-from bussiness import friend as friend_service
+from service import friend as friend_service
+from service import article as article_service
 __author__ = 'wuyongxing'
 
 class BaseHandler(RequestHandler):
@@ -18,5 +18,7 @@ class BaseHandler(RequestHandler):
 
     def render(self, template_name, **kwargs):
         kwargs['links'] = friend_service.get_all_friend_link()
-        RequestHandler.render(self, path.join(settings['template_path'], '%s.html' % template_name), **kwargs)
+        kwargs['types'] = article_service.get_all_article_type()
+        kwargs['latest_articles'] = article_service.get_latest_article()
+        RequestHandler.render(self, path.join(self.get_template_path(), '%s.html' % template_name), **kwargs)
 

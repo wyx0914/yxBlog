@@ -1,0 +1,86 @@
+{% extends 'system-base.html' %}
+{% block tabId %}#article-type{% end %}
+
+{% block css %}
+<style type="text/css" rel="stylesheet">
+    td, th {
+        text-align: center;
+    }
+
+    .table {
+        margin: 0px;
+    }
+</style>
+{% end %}
+
+{% block region %}
+<form class="form-inline" action="/system/article/type/add" method="post">
+    {% module xsrf_form_html() %}
+    <div class="form-group">
+        <div class="input-group">
+            <div class="input-group-addon">分类</div>
+            <input type="text" class="form-control" placeholder="分类" name="type">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">添加</button>
+</form>
+<br/>
+<table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>分类</th>
+        <th>文章数</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for item in types %}
+    <tr>
+        <td style="width: 25%"><span>{{ item['_id'] }}</span></td>
+        <td style="width: 30%">
+            <input class="btn btn-block" type="text" value="{{ item['type'] }}" name="type"/>
+        </td>
+        <td style="width: 30%">
+            <span>{{ item['num'] }}</span>
+        </td>
+        <td style="width: 15%">
+            <button class="btn btn-warning" onclick="updateLink(this)">修改</button>
+            <button class="btn btn-danger" onclick="deleteLink(this)">删除</button>
+        </td>
+    </tr>
+    {% end %}
+    </tbody>
+</table>
+{% end %}
+
+
+{% block js %}
+<script type="text/javascript">
+    function updateLink(element) {
+        p = $(element).parent()
+        _id = p.siblings("td:eq(0)").children("span").html()
+        type = p.siblings("td:eq(1)").children("input").val()
+
+        $.post("/system/article/type/update", {
+            _xsrf: getCookie('_xsrf'),
+            _id: _id,
+            type: type
+        }, function (data, status) {
+            window.location.reload()
+        })
+    }
+
+    function deleteLink(element) {
+        p = $(element).parent()
+        _id = p.siblings("td:eq(0)").children("span").html()
+
+        $.post("/system/article/type/delete", {
+            _xsrf: getCookie('_xsrf'),
+            _id: _id
+        }, function (data, status) {
+            window.location.reload()
+        })
+    }
+</script>
+{% end %}

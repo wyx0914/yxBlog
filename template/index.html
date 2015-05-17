@@ -1,0 +1,51 @@
+{% extends base.html %}
+{% block title %}
+yx0914 - yx0914.me
+{% end %}
+
+{% block css %}
+{% end %}
+
+{% block js %}
+<script type="text/javascript">
+
+    $(function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })
+</script>
+{% end %}
+
+{% block main %}
+<div class="index items">
+    {% for i in latest_articles %}
+    <div class="item">
+        <div class="title">
+            <a href="/article/detail/{{ i.title }}">{{ i.title }}</a>
+        </div>
+        <div class="description">
+            {{ i.description }}
+        </div>
+        <div class="info">
+            <span>{{ datetime.datetime.fromtimestamp(i.time).strftime('%Y-%m-%d') }}</span>&nbsp;&nbsp;
+            <span>阅读({{ i.visit_count }})</span>&nbsp;&nbsp;
+            <span>评论(<span class="ds-thread-count" data-thread-key="article-{{ i._id }}"></span>)</span>&nbsp;&nbsp;
+            <span>分类: <a href="/article/{{ i.type_name }}/page/1">{{ i.type_name }}</a></span>&nbsp;&nbsp;
+            <span>
+                标签:
+                {% if len(i.tag) == 0 %}
+                无
+                {% else %}
+                {{ i.tag.replace(',', ' ') }}
+                {% end %}
+            </span>
+        </div>
+    </div>
+    {% end %}
+</div>
+{% end %}

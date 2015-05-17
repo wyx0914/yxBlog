@@ -4,12 +4,14 @@ import sys
 from tornado.ioloop import IOLoop
 from tornado.web import Application
 from config.constants import settings
-from config.route import mapper
+from config.route import handler_mapper
 
 __author__ = 'wuyongxing'
 
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
-application = Application(mapper, **settings)
+application = Application(handler_mapper, **settings)
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
