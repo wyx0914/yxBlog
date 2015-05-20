@@ -6,10 +6,7 @@ __author__ = 'wuyongxing'
 table_admin = db.get_connection().admin
 
 
-def login(account, password):
-    count = table_admin.find({
+def get_password_md5(account):
+    return table_admin.find_one({
         'account': account,
-        'password': password
-    }).count()
-
-    return count > 0
+    })

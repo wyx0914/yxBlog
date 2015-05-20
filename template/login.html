@@ -65,7 +65,7 @@
 <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/static/js/md5.js"></script>
 <script type="text/javascript">
-
+    var randomStr = '{{ random_str }}'
     function submitForm() {
         var account = $('#account').val()
         var password = $('#password').val()
@@ -74,8 +74,8 @@
             alert('请输入账号或密码!')
             return
         }
-
-        $('#password').val(hex_md5(password))
+        password = hex_md5(hex_md5(password) + randomStr)
+        $('#password').val(password)
 
         $('#login').submit()
     }

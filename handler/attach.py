@@ -20,7 +20,9 @@ class AttachUploadHandler(SystemHandler):
         self.write(json_str)
 
 
-class AttachManageHandler(BaseHandler):
+class AttachManageHandler(SystemHandler):
+
+    @authenticated
     def get(self, *args, **kwargs):
         type = self.get_argument('dir', '')
         path = self.get_argument('path', '')

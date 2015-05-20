@@ -44,14 +44,18 @@ class LoginHandler(SystemHandler):
             self.redirect(next)
             return
 
-        self.render('login', next=next)
+        random_str = admin_service.create_random_str()
+        self.set_secure_cookie('random', random_str, expires=time.time() + constants.cookies_expires)
+
+        self.render('login', next=next, random_str=random_str)
 
     def post(self, *args, **kwargs):
         next = self.get_argument('next', '/system/article/list/1')
         account = self.get_argument('account', '')
         password = self.get_argument('password', '')
+        random_str = self.get_secure_cookie('random')
 
-        flag = admin_service.login(account, password)
+        flag = admin_service.login(account, password, random_str)
         if flag:
             self.set_secure_cookie('user', account, expires=time.time() + constants.cookies_expires)
             self.redirect(next)

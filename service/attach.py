@@ -82,6 +82,9 @@ def image_list(type, _path, order):  # order 固定按时间排序，从新到�
     if _path != '' and not _path.endswith('/'):
         return path_error
 
+    if not cur_path.startswith(constants.attach_path):
+        return path_error
+
     if not path.exists(cur_path) or not path.isdir(cur_path):
         return path_error
 
